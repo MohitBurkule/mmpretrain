@@ -280,7 +280,10 @@ class CustomDataset(BaseDataset):
             else:
                 img_path = backend.join_path(self.img_prefix, sample)
                 info = {'img_path': img_path}
-            data_list.append(info)
+            if self.is_valid_file(info['img_path']):
+                data_list.append(info)
+        
+        
         return data_list
 
     def is_valid_file(self, filename: str) -> bool:
