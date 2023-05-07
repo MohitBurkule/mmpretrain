@@ -1,4 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
+import os
 from typing import Callable, Dict, List, Optional, Sequence, Tuple, Union
 
 from mmengine.fileio import (BaseStorageBackend, get_file_backend,
@@ -284,4 +285,6 @@ class CustomDataset(BaseDataset):
 
     def is_valid_file(self, filename: str) -> bool:
         """Check if a file is a valid sample."""
-        return filename.lower().endswith(self.extensions)
+        endcheck=filename.lower().endswith(self.extensions)
+        sizecheck=os.path.getsize(filename)>100
+        return endcheck and sizecheck
