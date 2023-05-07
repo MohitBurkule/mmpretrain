@@ -272,6 +272,7 @@ class CustomDataset(BaseDataset):
         # Pre-build file backend to prevent verbose file backend inference.
         backend = get_file_backend(self.img_prefix, enable_singleton=True)
         data_list = []
+        number_of_removed_samples=0
         for sample in samples:
             if self.with_label:
                 filename, gt_label = sample
@@ -282,7 +283,11 @@ class CustomDataset(BaseDataset):
                 info = {'img_path': img_path}
             if self.is_valid_file(info['img_path']):
                 data_list.append(info)
-        
+            else:
+                number_of_removed_samples+=1
+        if number_of_removed_samples>0:
+            logger = MMLogger.get_current_instance()
+            logger.warning(f"Removed {number_of_removed_samples} samples because they were too small or not in the right format.")
         
         return data_list
 
