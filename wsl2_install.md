@@ -11,7 +11,7 @@ install mmpretrain,mmengine,mmcv-full
 ```
 pip install -e .[all]
 pip install mmengine
-pip install mmcv-full
+pip install mmcv-full // or lite
 ```
 
 install g++
